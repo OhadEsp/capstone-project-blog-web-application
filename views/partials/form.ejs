@@ -1,0 +1,23 @@
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-md-10 mx-auto col-lg-5">
+        <% if (locals.action) { %>
+          <form action=<%= action %> method="POST">
+              <div class="m-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" id="title" name="postTitle" class="form-control" <% if(locals.postObject) {%> value="<%= postObject.title %>" <% } %> required>
+              </div>
+              <div class="m-3">
+                  <label for="author" class="form-label">Author name</label>
+                  <input type="text" id="author" name="authorName" class="form-control" <% if(locals.postObject) {%> value="<%= postObject.author %>" <% } %> required>
+              </div>
+              <div class="m-3">
+                  <label for="content" class="form-label">Post</label>
+                  <textarea id="content" class="form-control" name="postContent" rows="3" required><% if(locals.postObject) {%><%= postObject.content %><% } %></textarea>
+              </div>
+              <button type="submit" class="m-3 btn btn-dark"><% if(locals.buttonName) {%><%= buttonName %><% } %></button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  </div>

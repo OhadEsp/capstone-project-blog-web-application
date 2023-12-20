@@ -1,0 +1,12 @@
+<% if (locals.postObjects) { %>
+    <% for (var i = 0; i < postObjects.length; i++) { %>
+        <div class="container">
+            <hr>
+            <h2 class="article-h2 display-5 link-body-emphasis mb-1" id="article-<%= i %>"><%= postObjects[i].title %></h2>
+            <p class="blog-post-meta"><%= postObjects[i].date %> by <%= postObjects[i].author %></p>
+            <p><%= postObjects[i].content %></p>
+            <a href="/delete/<%= i %>">Delete</a>
+            <a href="/edit/<%= i %>">Edit</a>
+        </div>
+    <% } %>
+<% } %>
