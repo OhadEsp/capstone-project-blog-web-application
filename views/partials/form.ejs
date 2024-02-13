@@ -15,7 +15,16 @@
                   <label for="content" class="form-label">Post</label>
                   <textarea id="content" class="form-control" name="postContent" rows="3" required><% if(locals.postObject) {%><%= postObject.content %><% } %></textarea>
               </div>
-              <button type="submit" class="m-3 btn btn-dark"><% if(locals.buttonName) {%><%= buttonName %><% } %></button>
+              <button type="submit" class="m-3 btn btn-dark"
+              <% console.log(locals.buttonTagName) %>
+              <% console.log(locals.buttonTagValue) %>
+              <% if(locals.buttonTagValue && locals.buttonTagName) {%> 
+                value="<%= buttonTagValue %>"
+                name="<%= buttonTagName %>"
+              <% } %>
+              >
+                <% if(locals.buttonName) {%><%= buttonName %><% } %>
+              </button>
           </form>
         <% } %>
       </div>

@@ -11,11 +11,13 @@ function init() {
     posts = [];
 }
 
+// Handler for getting home page.
 app.get("/", (req, res) => {
     init();
     res.render("index.ejs");
 });
 
+// Handler for getting Add New blog-Post form.
 app.get("/addpost", (req, res) => {
     res.render("blogPostForm.ejs", {
         action: "/addpost",
@@ -23,6 +25,7 @@ app.get("/addpost", (req, res) => {
     });
 });
 
+// Handler for posting the new blog-post (triggered by clicking the Post button on the form).
 app.post("/addpost", (req, res) => {
     var postDate = new Date();
     posts.push({
@@ -37,6 +40,7 @@ app.post("/addpost", (req, res) => {
     });
 });
 
+// Handler for viewing the blog-posts.
 app.get("/posts", (req, res) => {
     res.render("posts.ejs", {
         postObjects: posts
@@ -44,17 +48,19 @@ app.get("/posts", (req, res) => {
 });
 
 // For edit link click
-app.get("/edit/:postIndex", (req, res) => {
-    const postIndex = parseInt(req.params.postIndex);
+app.post("/edit", (req, res) => {
+    const postIndex = parseInt(req.body["edit"]);
     const post = posts[postIndex];
     res.render("blogPostForm.ejs", {
-        action: `/edit/${postIndex}`, // For edit form submit.
+        action: "/update", // For edit form submit.
         buttonName: "Update",
+        buttonTagName: "update",
+        buttonTagValue: postIndex.toString(),
         postObject: post
     });
   });
   
-  app.post("/edit/:postIndex", (req, res) => {
+  app.post("/update", (req, res) => {
     var postDate = new Date;
     var modifiedPost = {
         title: req.body["postTitle"],
@@ -62,13 +68,14 @@ app.get("/edit/:postIndex", (req, res) => {
         content: req.body["postContent"],
         date: `${month[postDate.getMonth()]} ${postDate.getFullYear()}`
     };
-    const postIndex = parseInt(req.params.postIndex);
+    console.log(req.body["update"]);
+    const postIndex = parseInt(req.body["update"]);
     posts[postIndex] = modifiedPost;
     res.redirect('/posts');
   });
 
-  app.get("/delete/:postIndex", (req, res) => {
-    const index = req.params.postIndex;
+  app.post("/delete", (req, res) => {
+    const index = parseInt(req.body["delete"]);
     posts.splice(index, 1);
     res.redirect("/posts");
   });

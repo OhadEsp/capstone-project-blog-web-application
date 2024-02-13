@@ -1,12 +1,18 @@
 <% if (locals.postObjects) { %>
     <% for (var i = 0; i < postObjects.length; i++) { %>
-        <div class="container">
+        <div class="m-3">
             <hr>
             <h2 class="article-h2 display-5 link-body-emphasis mb-1" id="article-<%= i %>"><%= postObjects[i].title %></h2>
             <p class="blog-post-meta"><%= postObjects[i].date %> by <%= postObjects[i].author %></p>
             <p><%= postObjects[i].content %></p>
-            <a href="/delete/<%= i %>">Delete</a>
-            <a href="/edit/<%= i %>">Edit</a>
+            <div class="d-inline-flex gap-2 mb-5">
+                <form action="/delete" method="POST">
+                    <button type="submit" class="m-3 btn btn-dark" value="<%= i %>" name="delete">Delete</button>
+                </form>
+                <form action="/edit" method="POST">
+                    <button type="submit" class="m-3 btn btn-dark" value="<%= i %>" name="edit">Edit</button>
+                </form>
+            </div>
         </div>
     <% } %>
 <% } %>
